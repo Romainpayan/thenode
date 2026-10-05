@@ -161,12 +161,12 @@ a{color:inherit}
 .work{position:relative;background:linear-gradient(100deg,#5e5e5c 0%,#323231 30%,#121212 62%,#000 100%)}
 .work::before{content:"";position:absolute;inset:0;background-image:var(--plus);background-size:200px 200px;pointer-events:none}
 .work-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column}
-.work-bar{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:calc(88px + env(safe-area-inset-top,0px)) var(--gut) 0;color:var(--dim)}
+.work-bar{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:calc(70px + env(safe-area-inset-top,0px)) var(--gut) 0;color:var(--dim)}
 .work-bar .a{grid-column:1/span 4}
 .work-bar .b{grid-column:5/span 5;position:relative;height:1px;background:var(--hair);align-self:center}
 .work-bar .b i{position:absolute;left:0;top:0;height:1px;width:0;background:var(--white)}
 .work-bar .c{grid-column:10/span 3;text-align:right;color:var(--white)}
-.work-track{flex:1;display:flex;align-items:center;gap:clamp(28px,4vw,72px);padding:0 var(--gut);will-change:transform;width:max-content}
+.work-track{flex:1;min-height:0;display:flex;align-items:center;gap:clamp(28px,4vw,72px);padding:0 var(--gut);will-change:transform;width:max-content}
 .intro-panel{width:min(40vw,500px);flex:none;align-self:flex-start;padding-top:clamp(24px,7vh,80px)}
 .intro-panel h2{margin:0;font-family:var(--f-head);font-weight:600;font-size:clamp(56px,8.5vw,150px);line-height:.8;letter-spacing:-.07em;color:var(--deep);text-shadow:0 0 1px rgba(255,255,255,.05)}
 .intro-panel h2 span{display:block;padding-left:.45em}
@@ -174,7 +174,7 @@ a{color:inherit}
 .intro-panel .hint{margin-top:26px;display:flex;gap:10px}
 .intro-panel .hint b{font-weight:400;display:inline-block;animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateX(8px)}}
-.card{--w:min(60.7vh,581px);--h:calc(var(--w) * 9 / 16);flex:none;width:var(--w);display:grid;gap:12px;cursor:pointer;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit}
+.card{--w:min(54vh,540px);--h:calc(var(--w) * 9 / 16);flex:none;width:var(--w);display:grid;gap:12px;cursor:pointer;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit}
 .card .top{display:flex;justify-content:space-between;color:var(--dim)}
 .frame{position:relative;height:var(--h);overflow:hidden;background:var(--c3)}
 .frame .fx{position:absolute;inset:-18%;filter:blur(38px) saturate(.6);transition:filter .9s cubic-bezier(.2,.7,.1,1);will-change:transform}
@@ -215,7 +215,10 @@ a{color:inherit}
 .work.stack .end-panel{border-left:0;padding-left:0;border-top:1px solid var(--hair);padding-top:24px}
 
 /* numbers */
-.nums{background:linear-gradient(180deg,#141413,#1f1f1e);padding:0 var(--gut) clamp(80px,10vw,150px)}
+.nums{position:relative;flex:none;padding:0 var(--gut) calc(22px + env(safe-area-inset-bottom,0px))}
+.nums .head{margin-bottom:clamp(14px,2.4vh,26px)}
+.work:not(.stack) .nums .stat .v{font-size:clamp(36px,4.2vw,76px)}
+.work.stack .nums{padding-top:20px;padding-bottom:80px}
 .nums-grid{display:grid;grid-template-columns:repeat(4,1fr)}
 .stat{border-left:1px solid var(--hair);padding:2px clamp(14px,1.8vw,28px) 0;min-width:0}
 .typing::after{content:"▍";margin-left:1px;animation:caret .8s steps(1) infinite}
@@ -396,11 +399,7 @@ a{color:inherit}
         <a class="sm" href="#contact">→ me contacter</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- NUMBERS -->
-<section class="nums" aria-label="Résultats">
+    <div class="nums" aria-label="Résultats">
   <div class="head sm"><span class="k">(02) résultats</span><span class="t">ce que les histoires ont produit</span><span class="r">données campagnes</span></div>
   <div class="nums-grid">
     <div class="stat"><div class="v">+<span data-count="120">120</span>M</div><div class="l">de reach organique</div><div class="s sm">Dacia × Rocket League</div></div>
@@ -408,7 +407,10 @@ a{color:inherit}
     <div class="stat"><div class="v"><span data-count="7.5" data-dec="1">7,5</span>M</div><div class="l">de morceaux écoutés</div><div class="s sm">Hello bank! / HelloPlay!</div></div>
     <div class="stat"><div class="v">#<span data-count="1">1</span></div><div class="l">map Rocket League la plus populaire de tous les temps</div><div class="s sm">Dacia Electric Challenge</div></div>
   </div>
+</div>
+  </div>
 </section>
+
 
 <!-- CAREER -->
 <section class="band grey" id="parcours" aria-label="Parcours">
