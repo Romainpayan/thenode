@@ -215,7 +215,10 @@ a{color:inherit}
 .work.stack .end-panel{border-left:0;padding-left:0;border-top:1px solid var(--hair);padding-top:24px}
 
 /* numbers */
-.nums{position:relative;flex:none;padding:0 var(--gut) calc(22px + env(safe-area-inset-bottom,0px))}
+.nums{position:relative;flex:none;padding:18px var(--gut) calc(22px + env(safe-area-inset-bottom,0px));background:linear-gradient(100deg,#8e8e8b 0%,#5a5a58 30%,#232322 66%,#060606 100%)}
+.nums .head{border-top:0}
+.nums .stat .l{color:#fff;text-shadow:var(--halo)}
+.nums .stat .s{color:rgba(255,255,255,.75);text-shadow:var(--halo)}
 .nums .head{margin-bottom:clamp(14px,2.4vh,26px)}
 .work:not(.stack) .nums .stat .v{font-size:clamp(36px,4.2vw,76px)}
 .work.stack .nums{padding-top:20px;padding-bottom:80px}
