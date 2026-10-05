@@ -159,7 +159,7 @@ a{color:inherit}
 
 /* work */
 .work{position:relative;background:linear-gradient(100deg,#5e5e5c 0%,#323231 30%,#121212 62%,#000 100%)}
-.work::before{content:"";position:absolute;inset:0;background-image:var(--plus);background-size:200px 200px;pointer-events:none}
+.work-pin::before{content:"";position:absolute;inset:0;background-image:var(--plus);background-size:200px 200px;background-position:var(--px,0px) 0;pointer-events:none}
 .work-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column}
 .work-bar{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:calc(70px + env(safe-area-inset-top,0px)) var(--gut) 0;color:var(--dim)}
 .work-bar .a{grid-column:1/span 4}
@@ -704,7 +704,7 @@ P.forEach((p,i)=>{
   <div><h3>${esc(p.client)} <span>/ ${esc(p.title)}</span></h3><div class="sk sm">${p.skills.map(esc).join(" · ")}</div></div>`;
   b.addEventListener("click",()=>openP(i)); track.insertBefore(b,endPanel);
 });
-const work=document.getElementById("projets"), wprog=document.getElementById("wprog"), wcount=document.getElementById("wcount");
+const workPin=document.querySelector(".work-pin"), work=document.getElementById("projets"), wprog=document.getElementById("wprog"), wcount=document.getElementById("wcount");
 const cards=[...track.querySelectorAll(".card")];
 let dist=0,stack=false;
 function layoutWork(){
@@ -903,7 +903,7 @@ function frame(now){
     let active=0;
     if(!stack){
       const pp=clamp(-wr.top/Math.max(1,work.offsetHeight-vh));
-      track.style.transform=`translate3d(${-pp*dist}px,0,0)`; wprog.style.width=(pp*100)+"%";
+      track.style.transform=`translate3d(${-pp*dist}px,0,0)`; wprog.style.width=(pp*100)+"%"; workPin.style.setProperty("--px",(-pp*dist*.5)+"px");
       let best=-1,bd=1e9; cards.forEach((c,i)=>{const r=c.getBoundingClientRect();const off=(r.left+r.width/2-innerWidth/2)/innerWidth;c.querySelector(".fx").style.transform=`translate3d(${off*-90}px,0,0)`;if(r.left<innerWidth*.6)active=i+1;const d=Math.abs(r.left+r.width/2-innerWidth*.55);if(d<bd){bd=d;best=i;}});
       cards.forEach((c,i)=>c.classList.toggle("on",i===best||c.matches(":hover")));
     } else {
