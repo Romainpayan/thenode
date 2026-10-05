@@ -174,7 +174,7 @@ a{color:inherit}
 .intro-panel .hint{margin-top:26px;display:flex;gap:10px}
 .intro-panel .hint b{font-weight:400;display:inline-block;animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateX(8px)}}
-.card{--h:min(39vh,374px);flex:none;width:calc(var(--h) * 1.32);display:grid;gap:12px;cursor:pointer;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit}
+.card{--w:min(60.7vh,581px);--h:calc(var(--w) * 9 / 16);flex:none;width:var(--w);display:grid;gap:12px;cursor:pointer;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit}
 .card .top{display:flex;justify-content:space-between;color:var(--dim)}
 .frame{position:relative;height:var(--h);overflow:hidden;background:var(--c3)}
 .frame .fx{position:absolute;inset:-18%;filter:blur(38px) saturate(.6);transition:filter .9s cubic-bezier(.2,.7,.1,1);will-change:transform}
@@ -187,7 +187,7 @@ a{color:inherit}
 .frame .fig{position:absolute;left:14px;top:12px;color:rgba(255,255,255,.85);text-shadow:var(--halo)}
 .card{position:relative}
 .card > *{position:relative}
-.card .bgnum{position:absolute;z-index:-1;left:calc(-20% - .1em);top:-.3em;font-family:var(--f-head);font-weight:600;font-size:calc(var(--h) * .575);line-height:.8;letter-spacing:-.04em;color:#000;pointer-events:none;user-select:none}
+.card .bgnum{position:absolute;z-index:-1;left:calc(-20% - .1em);top:-.3em;font-family:var(--f-head);font-weight:600;font-size:calc(var(--w) * .32);line-height:.8;letter-spacing:-.04em;color:#000;pointer-events:none;user-select:none}
 .panel{position:absolute;right:0;bottom:0;width:44%;height:62%;background:#9a9a97;color:#0d0d0d;padding:14px;display:flex;flex-direction:column;justify-content:space-between;transition:background .5s,color .5s,box-shadow .5s}
 .card .frame{transition:background-color .5s,box-shadow .5s}
 .card .frame .fx{transition:opacity .5s,filter .9s cubic-bezier(.2,.7,.1,1)}
@@ -210,7 +210,7 @@ a{color:inherit}
 .work.stack .work-bar .b{display:none}
 .work.stack .work-track{flex-direction:column;align-items:stretch;width:auto;padding:40px var(--gut) 90px;gap:56px;transform:none!important}
 .work.stack .intro-panel,.work.stack .end-panel{width:auto}
-.work.stack .card{width:100%;--h:min(76.5vw,357px)}
+.work.stack .card{--w:calc(100vw - 2 * var(--gut));width:100%}
 .work.stack .panel{width:56%;height:56%}
 .work.stack .end-panel{border-left:0;padding-left:0;border-top:1px solid var(--hair);padding-top:24px}
 
