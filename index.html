@@ -99,20 +99,21 @@ a{color:inherit}
 @media (max-width:900px){
   .seq{display:none}
   .m-intro,.m-collab{display:block;position:relative;overflow:hidden}
-  .m-intro{background:linear-gradient(160deg,#3a3a38 0%,#141414 45%,#000 85%);padding:calc(70px + env(safe-area-inset-top,0px)) var(--gut) 56px}
-  .m-hero{position:relative}
-  .m-portrait{display:block;width:118%;max-width:none;margin-left:-14%;height:auto;filter:contrast(.95) brightness(.97)}
-  .m-name{position:absolute;left:0;top:50%;transform:translateY(-50%);width:84%;line-height:0}
+  .m-intro{background:linear-gradient(160deg,#3a3a38 0%,#141414 45%,#000 85%);padding:0 var(--gut) 56px}
+  .m-hero{position:relative;margin:0 calc(-1 * var(--gut));overflow:hidden}
+  .m-portrait{display:block;width:150%;max-width:none;margin-left:-30%;height:auto;filter:contrast(.95) brightness(.97)}
+  .m-hero .m-portrait{margin-top:-6%}
+  .m-name{position:absolute;left:var(--gut);top:52%;transform:translateY(-50%);width:84%;line-height:0}
   .m-name svg{width:100%;height:auto;display:block}
   .m-name svg g{fill:#fff}
-  .m-role{text-align:right;margin-top:10px;color:#fff;font-size:13px}
+  .m-role{text-align:right;margin-top:10px;padding:0 var(--gut);color:#fff;font-size:13px}
   .m-pitch{margin-top:34px;color:#fff}
   .m-pitch p{margin:0;font-family:var(--f-head);font-weight:500;font-size:clamp(20px,5.6vw,30px);line-height:1.1}
   .m-pitch p.b{margin:22px 0 0 18%;font-size:clamp(17px,4.6vw,24px)}
   .m-pitch em{font-family:var(--f-mono);font-style:italic;font-weight:700;letter-spacing:-.02em}
   .m-skills{list-style:none;margin:40px 0 0;padding:16px 0 0;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:8px 18px;color:#fff;font-size:13px}
   .m-collab{background:linear-gradient(100deg,#e2e2df 0%,#cfcfcc 45%,#b3b3b0 100%);color:#0d0d0d;padding:0 0 64px}
-  .m-collab .m-portrait{filter:invert(1);opacity:.92;margin-top:calc(56px + env(safe-area-inset-top,0px))}
+  .m-collab .m-portrait{filter:invert(1);opacity:.92;margin-top:0}
   .m-collab-in{position:relative;margin-top:-22vw;padding:0 var(--gut)}
   .m-collab .pre{font-family:var(--f-head);font-size:17px}
   .m-collab h2{margin:4px 0 0;font-family:var(--f-head);font-weight:400;font-size:clamp(40px,11vw,64px);line-height:.92;letter-spacing:-.03em}
