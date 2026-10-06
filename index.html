@@ -888,7 +888,7 @@ const glitchTargets=[...document.querySelectorAll(".collab-h .pre,.collab-h h2,.
 const roleTag=document.getElementById("roleTag"), greybg=document.getElementById("greybg"), pitch=document.getElementById("pitch"), intro=document.getElementById("intro"), collabH=document.getElementById("approche");
 const stepBars=[...document.querySelectorAll(".steps b")], stepLbl=document.getElementById("stepLbl");
 const STEP_NAMES=["01 / 03 — flou","02 / 03 — mise au point","03 / 03 — collaboration"];
-let lastStep=-1,lastWords=-1, t0=performance.now(), parX=0, parY=0;
+let lastStep=-1,lastWords=-1, t0=performance.now(), parX=0, parY=0, revealT=0;
 function frame(now){
   const y=scrollY, vh=innerHeight;
   /* --- sequence --- */
@@ -904,8 +904,8 @@ function frame(now){
     greybg.style.opacity=m;
     const isLight=m>.5;
     if(isLight!==stage.classList.contains("light")){
-      stage.classList.toggle("light",isLight);
-      glitchTargets.forEach((el,i)=>{ el.classList.remove("gl"); if(isLight&&!reduce){ void el.offsetWidth; el.style.animationDelay=(el.closest(".collab-h")?i*90:520+i*70)+"ms"; el.classList.add("gl"); } });
+      stage.classList.toggle("light",isLight); revealT=isLight?now:0;
+      glitchTargets.forEach((el,i)=>{ el.classList.remove("gl"); if(isLight&&!reduce){ void el.offsetWidth; el.style.animationDelay=(el.closest(".collab-h")?i*90:1000+i*90)+"ms"; el.classList.add("gl"); } });
     }
     stage.classList.toggle("short",H<780||W<1100);
     vel*=.94;
@@ -935,7 +935,9 @@ function frame(now){
     const ptx=(!mobile&&!reduce&&lastX!==null)?clamp((mX/W-.5)*2,-1,1):0, pty=(!mobile&&!reduce&&lastX!==null)?clamp((mY/H-.5)*2,-1,1):0;
     parX+=(ptx-parX)*.07; parY+=(pty-parY)*.07;
     pitch.style.transform=`translate3d(${-m*60+parX*9}px,${(1-pk)*24+parY*6}px,0)${mobile?"":" translateY(-50%)"}`;
-    const mH=smooth(0,.45,m), m2=smooth(.45,1,m);
+    // step 03 reveal is timed, not scroll-driven: heading first, then the four collaborations
+    const since=revealT?now-revealT:-1, ease=t=>1-Math.pow(1-clamp(t),3);
+    const mH=since<0?0:(reduce?1:ease(since/500)), m2=since<0?0:(reduce?1:ease((since-1000)/1100));
     collabH.style.opacity=mH; collabH.style.transform=`translate3d(${parX*10}px,${(1-mH)*30+parY*7}px,0)`;
     if(mobile) collabH.style.top=(H*.18)+"px"; else collabH.style.top="";
     // fan
