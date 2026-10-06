@@ -888,7 +888,7 @@ const glitchTargets=[...document.querySelectorAll(".collab-h .pre,.collab-h h2,.
 const roleTag=document.getElementById("roleTag"), greybg=document.getElementById("greybg"), pitch=document.getElementById("pitch"), intro=document.getElementById("intro"), collabH=document.getElementById("approche");
 const stepBars=[...document.querySelectorAll(".steps b")], stepLbl=document.getElementById("stepLbl");
 const STEP_NAMES=["01 / 03 — flou","02 / 03 — mise au point","03 / 03 — collaboration"];
-let lastStep=-1,lastWords=-1, t0=performance.now();
+let lastStep=-1,lastWords=-1, t0=performance.now(), parX=0, parY=0;
 function frame(now){
   const y=scrollY, vh=innerHeight;
   /* --- sequence --- */
@@ -931,18 +931,22 @@ function frame(now){
     intro.style.opacity=1-smooth(.14,.28,p); roleTag.style.opacity=intro.style.opacity;
     const pk=smooth(.24,.38,p);
     pitch.style.opacity=pk*(1-smooth(.55,.7,p));
-    pitch.style.transform=`translate3d(${-m*60}px,${(1-pk)*24}px,0)${mobile?"":" translateY(-50%)"}`;
-    collabH.style.opacity=m; collabH.style.transform=`translate3d(0,${(1-m)*30}px,0)`;
+    // hover parallax: pointer offset from the centre, eased; eye (line origin) stays fixed
+    const ptx=(!mobile&&!reduce&&lastX!==null)?clamp((mX/W-.5)*2,-1,1):0, pty=(!mobile&&!reduce&&lastX!==null)?clamp((mY/H-.5)*2,-1,1):0;
+    parX+=(ptx-parX)*.07; parY+=(pty-parY)*.07;
+    pitch.style.transform=`translate3d(${-m*60+parX*9}px,${(1-pk)*24+parY*6}px,0)${mobile?"":" translateY(-50%)"}`;
+    collabH.style.opacity=m; collabH.style.transform=`translate3d(${parX*10}px,${(1-m)*30+parY*7}px,0)`;
     if(mobile) collabH.style.top=(H*.18)+"px"; else collabH.style.top="";
     // fan
     const ox=rx+iw*NOSE[0], oy=ry+ih*NOSE[1];
     SK.forEach((s,i)=>{
       const pos=mobile?s.m:s.d;
       const k=clamp((fanK-i*.045)/.55);
-      let x=pos[0]*W, yy=pos[1]*H, op=smooth(.55,1,k);
+      const dep=(s.k==="b"?16:26)+(i%3)*5, pdx=parX*dep, pdy=parY*dep*.6;
+      let x=pos[0]*W+pdx, yy=pos[1]*H+pdy, op=smooth(.55,1,k);
       if(s.k==="b"){
         const c=mobile?s.cm:s.cd;
-        x=lerp(x,c[0]*W,m); yy=lerp(yy,c[1]*H,m);
+        x=lerp(x,c[0]*W+pdx,m); yy=lerp(yy,c[1]*H+pdy,m);
         op=Math.max(op*(1-m),m);
         s.el.style.transform=`translate3d(${x}px,${yy}px,0) translateY(-50%)`;
         s.dEl.style.opacity=smooth(.5,1,m); s.nEl.style.opacity=smooth(.55,1,m);
@@ -954,7 +958,7 @@ function frame(now){
       }
       s.el.style.opacity=op;
       // line from origin to label's left edge
-      const lx=pos[0]*W-8, ly=pos[1]*H;
+      const lx=pos[0]*W-8+pdx, ly=pos[1]*H+pdy;
       const len=Math.hypot(lx-ox,ly-oy);
       const draw=k*(1-smooth(0,.45,m));
       s.ln.setAttribute("x1",ox); s.ln.setAttribute("y1",oy); s.ln.setAttribute("x2",lx); s.ln.setAttribute("y2",ly);
@@ -962,7 +966,7 @@ function frame(now){
       s.ln.style.opacity=draw>0.001?(s.k==="b"?.85:.5):0;
       if(s.ln2){
         const c=mobile?s.cm:s.cd, bi=SK.filter(q=>q.k==="b").indexOf(s);
-        const nw=(s.nEl&&s.nEl.offsetWidth)||0; const cx2=c[0]*W-(mobile?8:nw+14), cy2=c[1]*H, l2=Math.hypot(cx2-ox,cy2-oy);
+        const nw=(s.nEl&&s.nEl.offsetWidth)||0; const cx2=c[0]*W-(mobile?8:nw+14)+pdx, cy2=c[1]*H+pdy, l2=Math.hypot(cx2-ox,cy2-oy);
         const d2=clamp((m-.45-bi*.08)/.35);
         s.ln2.setAttribute("x1",ox); s.ln2.setAttribute("y1",oy); s.ln2.setAttribute("x2",cx2); s.ln2.setAttribute("y2",cy2);
         s.ln2.style.strokeDasharray=l2; s.ln2.style.strokeDashoffset=l2*(1-d2);
