@@ -244,6 +244,8 @@ a{color:inherit}
 .card{grid-template-columns:minmax(0,1fr)}
 .card > *{min-width:0}
 .card h3{overflow-wrap:anywhere}
+.work:not(.stack) .card{align-self:center}
+.work:not(.stack) .card > div:last-child{min-height:calc(clamp(22px,2.1vw,32px) * 2 + 26px)}
 .drawer:focus,.drawer:focus-visible{outline:none}
 .panel .q{font-family:var(--f-head);font-weight:500;font-size:clamp(16px,1.5vw,22px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
 .panel .open{display:flex;justify-content:space-between;align-items:center}
