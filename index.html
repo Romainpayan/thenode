@@ -905,7 +905,7 @@ function frame(now){
     const isLight=m>.5;
     if(isLight!==stage.classList.contains("light")){
       stage.classList.toggle("light",isLight);
-      glitchTargets.forEach((el,i)=>{ el.classList.remove("gl"); if(isLight&&!reduce){ void el.offsetWidth; el.style.animationDelay=(i*70)+"ms"; el.classList.add("gl"); } });
+      glitchTargets.forEach((el,i)=>{ el.classList.remove("gl"); if(isLight&&!reduce){ void el.offsetWidth; el.style.animationDelay=(el.closest(".collab-h")?i*90:520+i*70)+"ms"; el.classList.add("gl"); } });
     }
     stage.classList.toggle("short",H<780||W<1100);
     vel*=.94;
@@ -935,7 +935,8 @@ function frame(now){
     const ptx=(!mobile&&!reduce&&lastX!==null)?clamp((mX/W-.5)*2,-1,1):0, pty=(!mobile&&!reduce&&lastX!==null)?clamp((mY/H-.5)*2,-1,1):0;
     parX+=(ptx-parX)*.07; parY+=(pty-parY)*.07;
     pitch.style.transform=`translate3d(${-m*60+parX*9}px,${(1-pk)*24+parY*6}px,0)${mobile?"":" translateY(-50%)"}`;
-    collabH.style.opacity=m; collabH.style.transform=`translate3d(${parX*10}px,${(1-m)*30+parY*7}px,0)`;
+    const mH=smooth(0,.45,m), m2=smooth(.45,1,m);
+    collabH.style.opacity=mH; collabH.style.transform=`translate3d(${parX*10}px,${(1-mH)*30+parY*7}px,0)`;
     if(mobile) collabH.style.top=(H*.18)+"px"; else collabH.style.top="";
     // fan
     const ox=rx+iw*NOSE[0], oy=ry+ih*NOSE[1];
@@ -947,10 +948,10 @@ function frame(now){
       if(s.k==="b"){
         const c=mobile?s.cm:s.cd;
         x=lerp(x,c[0]*W+pdx,m); yy=lerp(yy,c[1]*H+pdy,m);
-        op=Math.max(op*(1-m),m);
+        op=Math.max(op*(1-m),m2);
         s.el.style.transform=`translate3d(${x}px,${yy}px,0) translateY(-50%)`;
-        s.dEl.style.opacity=smooth(.5,1,m); s.nEl.style.opacity=smooth(.55,1,m);
-        const want=m>.5?1:0;
+        s.dEl.style.opacity=smooth(.3,1,m2); s.nEl.style.opacity=smooth(.2,1,m2);
+        const want=m2>.35?1:0;
         if(want!==s.state){ s.state=want; scramble(s,want?s.c:s.t); }
       } else {
         op*=1-smooth(0,.5,m);
@@ -967,7 +968,7 @@ function frame(now){
       if(s.ln2){
         const c=mobile?s.cm:s.cd, bi=SK.filter(q=>q.k==="b").indexOf(s);
         const nw=(s.nEl&&s.nEl.offsetWidth)||0; const cx2=c[0]*W-(mobile?8:nw+14)+pdx, cy2=c[1]*H+pdy, l2=Math.hypot(cx2-ox,cy2-oy);
-        const d2=clamp((m-.45-bi*.08)/.35);
+        const d2=clamp((m2-.1-bi*.12)/.5);
         s.ln2.setAttribute("x1",ox); s.ln2.setAttribute("y1",oy); s.ln2.setAttribute("x2",cx2); s.ln2.setAttribute("y2",cy2);
         s.ln2.style.strokeDasharray=l2; s.ln2.style.strokeDashoffset=l2*(1-d2);
         s.ln2.style.opacity=d2>0.001?(mobile?.22:.85):0;
