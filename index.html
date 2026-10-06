@@ -802,7 +802,7 @@ let lenis=null;
 /* step-by-step opening: one gesture = one step, then a short pause before the next */
 const STEPS=[0,.52,.87,1];
 let snapping=false, lockedUntil=0, prevWheel=0, touchY=null;
-const COOLDOWN=420;
+const COOLDOWN=180; let lastAbs=0;
 function seqGeo(){const top=seq.offsetTop, range=seq.offsetHeight-innerHeight; return {top,range};}
 function curStep(){const {top,range}=seqGeo(); const p=(scrollY-top)/range; let best=0; STEPS.forEach((v,i)=>{if(Math.abs(v-p)<Math.abs(STEPS[best]-p)) best=i;}); return {i:best,p};}
 function inSeq(dir){
@@ -820,22 +820,25 @@ function goStep(dir){
   const {top,range}=seqGeo(); const ty=top+STEPS[j]*range;
   snapping=true;
   const done=()=>{snapping=false; lockedUntil=performance.now()+COOLDOWN;};
-  if(lenis) lenis.scrollTo(ty,{duration:1,lock:true,force:true,onComplete:done});
-  else { scrollTo({top:ty,behavior:reduce?"auto":"smooth"}); setTimeout(done,reduce?0:850); }
+  if(lenis) lenis.scrollTo(ty,{duration:.8,lock:true,force:true,onComplete:done});
+  else { scrollTo({top:ty,behavior:reduce?"auto":"smooth"}); setTimeout(done,reduce?0:700); }
 }
 addEventListener("wheel",e=>{
   const dir=Math.sign(e.deltaY); if(!dir||document.documentElement.style.overflow==="hidden") return;
   if(!inSeq(dir)&&!snapping) return;
   e.preventDefault(); e.stopImmediatePropagation();
-  const now=performance.now(), gap=now-prevWheel; prevWheel=now;
-  if(gap>160) goStep(dir);   // a new gesture, not trackpad inertia
+  const now=performance.now(), gap=now-prevWheel, ad=Math.abs(e.deltaY); prevWheel=now;
+  // new gesture = a pause, or a fresh push stronger than the decaying trackpad inertia
+  const fresh=gap>110 || (ad>12 && ad>lastAbs*1.6);
+  lastAbs=ad;
+  if(fresh && ad>=3) goStep(dir);
 },{passive:false,capture:true});
 addEventListener("touchstart",e=>{touchY=e.touches[0].clientY},{passive:true,capture:true});
 addEventListener("touchmove",e=>{
   if(touchY===null||document.documentElement.style.overflow==="hidden") return; const dy=touchY-e.touches[0].clientY, dir=Math.sign(dy);
   if(!dir||(!inSeq(dir)&&!snapping)) return;
   e.preventDefault(); e.stopImmediatePropagation();
-  if(Math.abs(dy)>28){ goStep(dir); touchY=null; }
+  if(Math.abs(dy)>22){ goStep(dir); touchY=null; }
 },{passive:false,capture:true});
 addEventListener("keydown",e=>{
   const k={ArrowDown:1,PageDown:1," ":1,ArrowUp:-1,PageUp:-1}[e.key]; if(!k||(e.target.closest&&e.target.closest("input,textarea,button,a"))) return;
