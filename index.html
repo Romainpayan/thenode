@@ -1,4 +1,13 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Romain Payan — The.Nøde</title>
+<meta name="description" content="Romain Payan — directeur de création &amp; illustrateur. Portfolio.">
+</head>
+<body>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;500;600&display=swap">
@@ -32,10 +41,10 @@ a{color:inherit}
 :focus-visible{outline:1px solid var(--white);outline-offset:4px}
 .sm{font-size:11px;letter-spacing:.02em;line-height:1.45}
 .halo{text-shadow:var(--halo)}
-.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:95;opacity:.32;mix-blend-mode:overlay;
+.grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:95;opacity:.32;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='1.4 0 0 0 -.2  1.4 0 0 0 -.2  1.4 0 0 0 -.2  0 0 0 0 1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   animation:grain 1.2s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@keyframes grain{0%{background-position:0 0}20%{background-position:-37px 21px}40%{background-position:23px -48px}60%{background-position:-51px -9px}80%{background-position:31px 37px}100%{background-position:0 0}}
 .crosses{background-image:var(--plus);background-size:200px 200px}
 
 /* cursor */
@@ -85,6 +94,42 @@ a{color:inherit}
 .lab.b .desc b{font-weight:700}.lab.b .desc i{font-size:.9em}
 .stage.light .fan line{stroke-width:1.4}
 .stage.light .fan line{stroke:rgba(13,13,13,.8)}
+/* ---------- mobile / tablet (≤ 900px): simple stacked intro ---------- */
+.m-intro,.m-collab{display:none}
+@media (max-width:900px){
+  .seq{display:none}
+  .m-intro,.m-collab{display:block;position:relative;overflow:hidden}
+  .m-intro{background:linear-gradient(160deg,#3a3a38 0%,#141414 45%,#000 85%);padding:calc(70px + env(safe-area-inset-top,0px)) var(--gut) 56px}
+  .m-hero{position:relative}
+  .m-portrait{display:block;width:118%;max-width:none;margin-left:-14%;height:auto;filter:contrast(.95) brightness(.97)}
+  .m-name{position:absolute;left:0;top:50%;transform:translateY(-50%);width:84%;line-height:0}
+  .m-name svg{width:100%;height:auto;display:block}
+  .m-name svg g{fill:#fff}
+  .m-role{text-align:right;margin-top:10px;color:#fff;font-size:13px}
+  .m-pitch{margin-top:34px;color:#fff}
+  .m-pitch p{margin:0;font-family:var(--f-head);font-weight:500;font-size:clamp(20px,5.6vw,30px);line-height:1.1}
+  .m-pitch p.b{margin:22px 0 0 18%;font-size:clamp(17px,4.6vw,24px)}
+  .m-pitch em{font-family:var(--f-mono);font-style:italic;font-weight:700;letter-spacing:-.02em}
+  .m-skills{list-style:none;margin:40px 0 0;padding:16px 0 0;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:8px 18px;color:#fff;font-size:13px}
+  .m-collab{background:linear-gradient(100deg,#e2e2df 0%,#cfcfcc 45%,#b3b3b0 100%);color:#0d0d0d;padding:0 0 64px}
+  .m-collab .m-portrait{filter:invert(1);opacity:.92;margin-top:calc(56px + env(safe-area-inset-top,0px))}
+  .m-collab-in{position:relative;margin-top:-22vw;padding:0 var(--gut)}
+  .m-collab .pre{font-family:var(--f-head);font-size:17px}
+  .m-collab h2{margin:4px 0 0;font-family:var(--f-head);font-weight:400;font-size:clamp(40px,11vw,64px);line-height:.92;letter-spacing:-.03em}
+  .m-collab h2 em{font-family:var(--f-mono);font-style:italic;font-weight:700;letter-spacing:-.06em}
+  .m-list{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:30px}
+  .m-list li{border-top:1px solid rgba(0,0,0,.25);padding-top:12px}
+  .m-list h3{margin:0 0 8px;font-family:var(--f-head);font-weight:500;font-size:21px;display:flex;gap:10px;align-items:baseline}
+  .m-list h3 span{font-weight:600;font-size:16px}
+  .m-list p{margin:0;font-size:12.5px;line-height:1.35}
+  .m-list b{font-weight:700}
+  .work.stack .frame{height:auto;aspect-ratio:4/5}
+  .work.stack .panel{width:72%;height:42%}
+  .work.stack .card .bgnum{left:-.06em;top:-.28em}
+  .work.stack .work-track{gap:72px}
+  .work.stack .intro-panel{padding-top:0}
+  .work.stack .work-track{padding-top:24px}
+}
 .gl{animation:glitchIn .55s steps(1,end) both}
 @keyframes glitchIn{
   0%{clip-path:inset(0 0 100% 0);transform:translateX(-8px)}
@@ -196,6 +241,9 @@ a{color:inherit}
 .card:not(.on) .panel{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.85)}
 .card:not(.on) h3,.card:not(.on) .sk{opacity:.7;transition:opacity .5s}
 .card .sk{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card{grid-template-columns:minmax(0,1fr)}
+.card > *{min-width:0}
+.card h3{overflow-wrap:anywhere}
 .drawer:focus,.drawer:focus-visible{outline:none}
 .panel .q{font-family:var(--f-head);font-weight:500;font-size:clamp(16px,1.5vw,22px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
 .panel .open{display:flex;justify-content:space-between;align-items:center}
@@ -374,6 +422,28 @@ a{color:inherit}
       <span class="steps sm" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><span id="stepLbl" style="margin-left:8px">01 / 03 — flou</span></span>
       <span class="big">2026</span>
     </div>
+  </div>
+</section>
+
+<!-- MOBILE INTRO (≤ 900px) -->
+<section class="m-intro" aria-label="Introduction">
+  <div class="m-hero">
+    <img class="m-portrait" alt="Portrait de Romain Payan, de profil, en pixel sorting">
+    <div class="m-name" id="mName" aria-label="Romain Payan"></div>
+    <div class="m-role sm">creative director.</div>
+  </div>
+  <div class="m-pitch">
+    <p class="a">Créatif Digital Senior &amp; Illustrateur, je place le <em>storytelling</em> au cœur de tout ce que je conçois.</p>
+    <p class="b">De la naissance d’une idée à sa réalisation finale, <em>cette vision guide chacun de mes projets.</em></p>
+  </div>
+  <ul class="m-skills sm"><li>creative direction.</li><li>social media.</li><li>experiences.</li><li>graphic design.</li><li>branding.</li><li>gaming.</li><li>illustration.</li></ul>
+</section>
+<section class="m-collab" id="approche-m" aria-label="Comment on travaille ensemble">
+  <img class="m-portrait inv" alt="">
+  <div class="m-collab-in">
+    <div class="pre">Ok, cool mais…</div>
+    <h2>comment<br><em>on travaille</em><br>ensemble?</h2>
+    <ol class="m-list" id="mList"></ol>
   </div>
 </section>
 
@@ -623,6 +693,14 @@ function initGL(){
 let glOK=false; try{glOK=initGL()}catch(e){glOK=false}
 if(!glOK){ canvas.style.display="none"; fb.style.display="block"; }
 
+const MOB=matchMedia("(max-width:900px)");
+/* mobile intro content */
+(function(){
+  const src=(typeof PORTRAIT!=="undefined")?PORTRAIT:"img/p1.webp";
+  document.querySelectorAll(".m-portrait").forEach(i=>i.src=src);
+  document.getElementById("mName").innerHTML=document.querySelector("#intro .name").innerHTML;
+  document.getElementById("mList").innerHTML=SK.filter(s=>s.k==="b").map(s=>`<li><h3><span>${s.n}</span>${s.c}</h3><p>${s.lg}</p></li>`).join("");
+})();
 function size(){
   W=stage.clientWidth; H=stage.clientHeight; mobile=W<820; dpr=Math.min(devicePixelRatio||1,1.5);
   canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr);
@@ -708,7 +786,7 @@ const workPin=document.querySelector(".work-pin"), work=document.getElementById(
 const cards=[...track.querySelectorAll(".card")];
 let dist=0,stack=false;
 function layoutWork(){
-  stack=innerWidth<820||reduce; work.classList.toggle("stack",stack);
+  stack=innerWidth<=900||reduce; work.classList.toggle("stack",stack);
   if(stack){work.style.height="";track.style.transform="";return;}
   dist=Math.max(0,track.scrollWidth-innerWidth); work.style.height=(dist+innerHeight)+"px";
 }
@@ -723,6 +801,7 @@ const COOLDOWN=420;
 function seqGeo(){const top=seq.offsetTop, range=seq.offsetHeight-innerHeight; return {top,range};}
 function curStep(){const {top,range}=seqGeo(); const p=(scrollY-top)/range; let best=0; STEPS.forEach((v,i)=>{if(Math.abs(v-p)<Math.abs(STEPS[best]-p)) best=i;}); return {i:best,p};}
 function inSeq(dir){
+  if(MOB.matches) return false;
   const {top,range}=seqGeo(), y=scrollY;
   if(y<top-4||y>top+range+4) return false;
   const {i}=curStep();
@@ -766,6 +845,7 @@ addEventListener("scroll",()=>{if(!mnav.hidden)closeMenu()},{passive:true});
 function goTo(id){
   let y;
   if(id==="#top") y=0;
+  else if(id==="#approche" && MOB.matches) y=document.getElementById("approche-m").getBoundingClientRect().top+scrollY-60;
   else if(id==="#approche") y=seq.offsetTop+(seq.offsetHeight-innerHeight)*.87;
   else { const t=document.querySelector(id); if(!t) return; y=t.getBoundingClientRect().top+scrollY; }
   snapping=true;
@@ -809,7 +889,7 @@ function frame(now){
   /* --- sequence --- */
   const sr=seq.getBoundingClientRect();
   const p=clamp(-sr.top/Math.max(1,seq.offsetHeight-vh));
-  if(sr.bottom>0 && sr.top<vh){
+  if(!MOB.matches && sr.bottom>0 && sr.top<vh){
     const blur=1-smooth(.12,.4,p);
     const fanK=smooth(.3,.52,p);
     const m=smooth(.6,.84,p);
@@ -957,3 +1037,6 @@ cb.addEventListener("click",()=>{
 });
 })();
 </script>
+
+</body>
+</html>
